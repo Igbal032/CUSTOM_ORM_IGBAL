@@ -1,0 +1,15 @@
+<persistence>
+    <persistence-unit>
+        <properties>
+            <property name="driver">org.postgresql.Driver</property>
+            <property name="url">jdbc:postgresql://localhost/persistence</property>
+            <property name="user">postgres</property>
+            <property name="password">12345</property>
+        </properties>
+        <classes>
+            <class>
+                test.TestModel
+            </class>
+        </classes>
+    </persistence-unit>
+</persistence>
