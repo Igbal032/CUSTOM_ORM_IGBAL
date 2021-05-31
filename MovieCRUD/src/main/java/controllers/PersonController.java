@@ -165,14 +165,22 @@ public class PersonController implements IPerson {
 
         return;
     }
-
+    public List<Person> getAllToList() {
+        return em.createNativeQuery(
+                "SELECT * FROM people" +
+                        " where people.deleted_date" +
+                        " is null order by people.name",Person.class)
+                .getResultList();
+    }
     public void personMenu(){
         while (true){
         System.out.println("1. Şəxsiyyət əlavə etmək");
-        System.out.println("2. Şəxsiyyət redaktə etmək");
-        System.out.println("3. Şəxsiyyəti silmək");
-        System.out.println("4. Bütün şəxsiyyətlər");
-        System.out.println("5. Ada gÖrə axtarış");
+        if(getAllToList().size()!=0){
+            System.out.println("2. Şəxsiyyət redaktə etmək");
+            System.out.println("3. Şəxsiyyəti silmək");
+            System.out.println("4. Bütün şəxsiyyətlər");
+            System.out.println("5. Ada gÖrə axtarış");
+        }
         System.out.println("0. Geriye Qayiıtmaq");
         int x = selectOptionInPersonMenu();
         if (x==0){
@@ -189,26 +197,35 @@ public class PersonController implements IPerson {
                 createPerson();
                 return 1;
             }
-            case 2:{
-                updatePerson();
-                return 2;
-            }
-            case 3:{
-                deletePerson();
-                return 3;
-            }
-            case 4:{
-                getAll();
-                return 5;
-            }
-            case 5:{
-                searchWithName();
-                return 6;
-            }
+
             case 0:
                 return 0;
-            default:
-                return 8;
+
+        }
+        if(getAllToList().size()!=0){
+            switch (whichOperation){
+                case 2:{
+                    updatePerson();
+                    return 2;
+                }
+                case 3:{
+                    deletePerson();
+                    return 3;
+                }
+                case 4:{
+                    getAll();
+                    return 5;
+                }
+                case 5:{
+                    searchWithName();
+                    return 6;
+                }
+                default:
+                    return -1;
+            }
+        }
+        else {
+            return -1;
         }
     }
 

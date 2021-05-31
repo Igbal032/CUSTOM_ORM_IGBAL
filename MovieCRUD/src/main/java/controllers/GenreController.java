@@ -113,7 +113,6 @@ public class GenreController implements IGenre {
         while (true){
             System.out.println("1. Janr əlavə edin");
             System.out.println("2. Ada görə axtarış");
-            System.out.println("3. Ada görə axtarış");
             System.out.println("0. Geriyə qayit");
             int select =  selectOptionInGenreMenu();
             if (select==0){

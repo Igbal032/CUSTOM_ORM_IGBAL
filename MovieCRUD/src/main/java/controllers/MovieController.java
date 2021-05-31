@@ -143,9 +143,11 @@ public class MovieController implements IMovie {
     public void movieMenu(){
         while (true){
             System.out.println("1. Kino əlavə edin");
-            System.out.println("2. Ada görə axtarış");
-            System.out.println("3. Kinodakı şəxsiyyətlərə görə əməliyyat");
-            System.out.println("4. Kinoya janr əlavə etmək");
+            if(getAll().size()!=0){
+                System.out.println("2. Ada görə axtarış");
+                System.out.println("3. Kinodakı şəxsiyyətlərə görə əməliyyat");
+                System.out.println("4. Kinoya janr əlavə etmək");
+            }
             System.out.println("0. Geriyə qayit");
             int select =  selectOptionInMovieMenu();
             if (select==0){
@@ -172,24 +174,27 @@ public class MovieController implements IMovie {
                 createMovie();
                 return 1;
             }
-            case 2:{
-                searchWithName();
-                return 2;
-            }
-            case 3:{
-                MovieAndPersonController movieAndPersonController = new MovieAndPersonController(em);
-                movieAndPersonController.movieAndPersonMenu();
-                return 3;
-            }
-            case 4:{
-                addGenreToMovie();
-                return 4;
-            }
             case 0:
                 return 0;
-            default:
-                return 5;
         }
+        if(getAll().size()!=0){
+            switch (whichOperation){
+                case 2:{
+                    searchWithName();
+                    return 2;
+                }
+                case 3:{
+                    MovieAndPersonController movieAndPersonController = new MovieAndPersonController(em);
+                    movieAndPersonController.movieAndPersonMenu();
+                    return 3;
+                }
+                case 4:{
+                    addGenreToMovie();
+                    return 4;
+                }
+            }
+        }
+        return 5;
     }
 
     @Override
