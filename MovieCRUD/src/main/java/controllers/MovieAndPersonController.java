@@ -15,12 +15,16 @@ import java.util.Scanner;
 
 public class MovieAndPersonController implements IMovieAndPerson {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
     Helpers helpers = new Helpers();
-    MovieHelper movieHelper = new MovieHelper();
-    PersonHelper personHelper = new PersonHelper();
-    Scanner scanner = new Scanner(System.in);
-    EntityManager em = emf.createEntityManager();
+    MovieHelper movieHelper ;
+    PersonHelper personHelper;
+    EntityManager em ;
+
+    public MovieAndPersonController( EntityManager em) {
+        this.movieHelper =new MovieHelper(em);
+        this.personHelper =new PersonHelper(em);
+        this.em = em;
+    }
 
     public void movieAndPersonMenu(){
         while (true){

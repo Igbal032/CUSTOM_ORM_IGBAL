@@ -14,12 +14,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ProfessionController implements IProfession {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
     Helpers helpers = new Helpers();
-    ProfessionHelper professionHelper = new ProfessionHelper();
+    ProfessionHelper professionHelper;
     Scanner scanner = new Scanner(System.in);
-    EntityManager em = emf.createEntityManager();
-
+    EntityManager em ;
+    public ProfessionController(EntityManager entityManager) {
+        this.em=entityManager;
+        this.professionHelper = new ProfessionHelper(entityManager);
+    }
     @Override
     public void createProfession() {
     String name = professionHelper.enterInfo();
@@ -133,7 +135,7 @@ public class ProfessionController implements IProfession {
                 return 2;
             }
             case 3:{
-                PersonAndProfession personAndProfession = new PersonAndProfession();
+                PersonAndProfession personAndProfession = new PersonAndProfession(em);
                 personAndProfession.PersonAndProfessionMenu();
                 return 3;
             }

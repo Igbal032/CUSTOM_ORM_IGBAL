@@ -11,11 +11,16 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class PersonController implements IPerson {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
     Helpers helpers = new Helpers();
-    PersonHelper personHelper = new PersonHelper();
+    PersonHelper personHelper;
     Scanner scanner = new Scanner(System.in);
-    EntityManager em = emf.createEntityManager();
+    EntityManager em;
+
+    public PersonController(EntityManager entityManager) {
+        this.em=entityManager;
+        this.personHelper=new PersonHelper(entityManager);
+    }
+
     @Override
     public void createPerson() {
         String name = personHelper.enterInfo("name");

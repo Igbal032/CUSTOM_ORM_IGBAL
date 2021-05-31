@@ -19,41 +19,41 @@ public class Main {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
         EntityManager em = emf.createEntityManager();
-        mainMenu();
+        mainMenu(em);
     }
 
-    public static void mainMenu(){
+    public static void mainMenu(EntityManager entityManager){
         while (true){
         System.out.println("1. Şəxsiyyət üzərində əməliyyat");
         System.out.println("2. Vəzifə üzərində əməliyyat");
         System.out.println("3. Kino üzərində əməliyyat");
         System.out.println("4. Janr üzərində əməliyyat");
         System.out.println("0. Sistemdən çıxmaq");
-        selectOptionInMainMenu();
+        selectOptionInMainMenu(entityManager);
         }
     }
 
-    public static void selectOptionInMainMenu(){
+    public static void selectOptionInMainMenu(EntityManager entityManager){
         System.out.println("Zəhmət olmasa seçim edin!!");
         int whichOperation =  helpers.enterAndCheckSelectedOption(5);
         switch (whichOperation){
             case 1:{
-                PersonController personController = new PersonController();
+                PersonController personController = new PersonController(entityManager);
                 personController.personMenu();
                 return;
             }
             case 2:{
-                ProfessionController professionController = new ProfessionController();
+                ProfessionController professionController = new ProfessionController(entityManager);
                 professionController.professionMenu();
                 return;
             }
             case 3:{
-                MovieController movieController = new MovieController();
+                MovieController movieController = new MovieController(entityManager);
                 movieController.movieMenu();
                 return;
             }
             case 4:{
-                GenreController genreController = new GenreController();
+                GenreController genreController = new GenreController(entityManager);
                 genreController.genreMenu();
                 return;
             }

@@ -14,11 +14,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MovieHelper {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
-    EntityManager em = emf.createEntityManager();
+    EntityManager em;
     Scanner scanner = new Scanner(System.in);
     Helpers helpers = new Helpers();
-
+    public MovieHelper(EntityManager entityManager) {
+        this.em=entityManager;
+    }
     public boolean checkedName(String text){
         Pattern pattern = Pattern.compile("([0-9]+)?^[\\p{L}\\. \'-]+([0-9]+)?$");
         Matcher matcher = pattern.matcher(text);

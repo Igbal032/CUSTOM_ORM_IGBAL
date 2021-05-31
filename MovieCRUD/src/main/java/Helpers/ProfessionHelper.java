@@ -14,9 +14,10 @@ import java.util.regex.Pattern;
 public class ProfessionHelper {
     Scanner scanner = new Scanner(System.in);
     Helpers helpers =  new Helpers();
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
-    EntityManager em = emf.createEntityManager();
-
+    EntityManager em;
+    public ProfessionHelper(EntityManager entityManager) {
+        this.em=entityManager;
+    }
     public String enterInfo(){
         String name="";
         System.out.println("Zəhmət olmasa ad daxil edin: ");

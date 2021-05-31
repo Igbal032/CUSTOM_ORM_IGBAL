@@ -6,24 +6,23 @@ import Models.Genre;
 import Models.Movie;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import Helpers.*;
-import Models.Person;
 
 public class MovieController implements IMovie {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
     Helpers helpers = new Helpers();
-    MovieHelper movieHelper = new MovieHelper();
-    GenreHelper genreHelper = new GenreHelper();
+    MovieHelper movieHelper ;
+    GenreHelper genreHelper ;
     Scanner scanner = new Scanner(System.in);
-    EntityManager em = emf.createEntityManager();
-
+    EntityManager em ;
+    public MovieController(EntityManager entityManager) {
+        this.em=entityManager;
+        this.movieHelper =new MovieHelper(em);
+        this.genreHelper =new GenreHelper(em);
+    }
     @Override
     public void createMovie() {
         String title = movieHelper.enterInfo("title");
@@ -178,7 +177,7 @@ public class MovieController implements IMovie {
                 return 2;
             }
             case 3:{
-                MovieAndPersonController movieAndPersonController = new MovieAndPersonController();
+                MovieAndPersonController movieAndPersonController = new MovieAndPersonController(em);
                 movieAndPersonController.movieAndPersonMenu();
                 return 3;
             }

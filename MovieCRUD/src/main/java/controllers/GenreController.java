@@ -13,12 +13,14 @@ import Helpers.GenreHelper;
 
 
 public class GenreController implements IGenre {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
     Helpers helpers = new Helpers();
-    GenreHelper genreHelper = new GenreHelper();
+    GenreHelper genreHelper;
     Scanner scanner = new Scanner(System.in);
-    EntityManager em = emf.createEntityManager();
-
+    EntityManager em ;
+    public GenreController(EntityManager entityManager) {
+        this.em=entityManager;
+        this.genreHelper=new GenreHelper(entityManager);
+    }
     @Override
     public void createGenre() {
         String name = genreHelper.enterInfo();

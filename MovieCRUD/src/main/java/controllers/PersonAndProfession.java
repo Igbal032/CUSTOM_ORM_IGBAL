@@ -12,12 +12,16 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class PersonAndProfession implements IPersonAndProfession {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("movieCrud");
     Helpers helpers = new Helpers();
-    ProfessionHelper professionHelper = new ProfessionHelper();
-    PersonHelper personHelper = new PersonHelper();
-    Scanner scanner = new Scanner(System.in);
-    EntityManager em = emf.createEntityManager();
+    ProfessionHelper professionHelper ;
+    PersonHelper personHelper ;
+    EntityManager em ;
+
+    public PersonAndProfession(EntityManager em) {
+        this.professionHelper = new ProfessionHelper(em);
+        this.personHelper = new PersonHelper(em);
+        this.em = em;
+    }
 
     public void PersonAndProfessionMenu(){
         while (true){
